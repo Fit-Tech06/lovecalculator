@@ -49,7 +49,6 @@ function startCalculation() {
       }
     }, 30);
   } else {
-    // Random case
     percentage = Math.floor(Math.random() * 51) + 50;
     let current = 0;
     const interval = setInterval(() => {
@@ -75,15 +74,14 @@ function showCustomResult(name1, name2, percent, message) {
   loveMessage.innerText = message;
   resultBox.classList.remove('hidden');
 
-  // ✅ Share on WhatsApp
   document.getElementById("shareBtn").onclick = function () {
     const text = `💘 Love Calculator Result 💘\n${name1} ❤️ ${name2} = ${percent}% compatibility!\n${message}`;
     const whatsappURL = `https://wa.me/?text=${encodeURIComponent(text)}`;
     window.open(whatsappURL, "_blank");
   };
 
-  // ✅ Log to Google Sheet
-  logToSheet(name1, name2, percent, message);
+  // ✅ Send email using EmailJS
+  sendEmail(name1, name2, percent, message);
 }
 
 function showResult(name1, name2, percentage) {
@@ -110,15 +108,29 @@ function showResult(name1, name2, percentage) {
   loveMessage.innerText = message;
   resultBox.classList.remove('hidden');
 
-  // ✅ Share on WhatsApp
   document.getElementById("shareBtn").onclick = function () {
     const text = `💘 Love Calculator Result 💘\n${name1} ❤️ ${name2} = ${percentage}% compatibility!\n${message}`;
     const whatsappURL = `https://wa.me/?text=${encodeURIComponent(text)}`;
     window.open(whatsappURL, "_blank");
   };
 
-  // ✅ Log to Google Sheet
-  logToSheet(name1, name2, percentage, message);
+  // ✅ Send email using EmailJS
+  sendEmail(name1, name2, percentage, message);
+}
+
+function sendEmail(name1, name2, percentage, message) {
+  emailjs.send("service_emo0y36", "template_qbqedit", {
+    name1: name1,
+    name2: name2,
+    percentage: percentage,
+    message: message
+  }, "AF_E4bKUocOFSsfRq")
+  .then(() => {
+    console.log("✅ Email sent successfully");
+  })
+  .catch(error => {
+    console.error("❌ Email sending failed", error);
+  });
 }
 
 function closeChat() {
@@ -128,21 +140,3 @@ function closeChat() {
 setTimeout(() => {
   document.getElementById('chatPopup').style.display = "block";
 }, 4000);
-
-// ✅ Function to log data to Google Sheets
-function logToSheet(name1, name2, percentage, message) {
-  fetch('https://script.google.com/macros/s/AKfycbzwFtJ5FX3g7ELGW9aV4K1voxJ3YTDsFTCj-E0IVKvxPmgSSR8e3fsrrXxaKvfcOnI1/exec', {
-    method: 'POST',
-    body: JSON.stringify({
-      name1: name1,
-      name2: name2,
-      percentage: percentage,
-      message: message
-    }),
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  })
-  .then(res => console.log("✅ Logged to Google Sheets"))
-  .catch(err => console.error("❌ Logging failed", err));
-}
