@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Love Meter 💘</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <div class="main-container">
+    <div class="love-calculator">
+      <h1>💖 Love Meter Calculator 💖</h1>
+      <p class="subtitle">Find out how strong your connection is!</p>
+
+      <div class="name-container">
+        <input type="text" id="yourName" placeholder="Your Name 💁‍♂️" />
+        <div class="heart-icon">💘</div>
+        <input type="text" id="crushName" placeholder="Crush's Name 💁‍♀️" />
+      </div>
+
+      <button onclick="startCalculation()">Check Compatibility</button>
+
+      <!-- Circle loader -->
+      <div id="loader" class="hidden">
+        <div class="circle-loader">
+          <div id="loaderText">0%</div>
+        </div>
+        <p style="color: #ff4081;">Calculating Love %...</p>
+      </div>
+
+      <div id="resultBox" class="hidden">
+        <div class="heart big-heart">💖</div>
+        <p id="resultText"></p>
+        <p id="loveMessage"></p>
+        <button id="shareBtn">🔗 Share on WhatsApp</button>
+      </div>
+    </div>
+
+    <div class="ads-container">
+      <div class="ad-box">💍 Find Your Dream Partner - 100% Matchmaking!</div>
+      <div class="ad-box">💌 Love Guru Special Deal - 1 Day Free Trial!</div>
+      <div class="ad-box">👩‍❤️‍👨 See Who Likes You Nearby - Open Now!</div>
+    </div>
+  </div>
+
+  <div class="chat-popup" id="chatPopup">
+    💬 Priya (21) from your city wants to chat with you!  
+    <span onclick="closeChat()" class="close-btn">x</span>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
